@@ -8,7 +8,7 @@ RM = rm -f
 CFLAGS = -static # Compile statically for simplicity
 
 # Find all ARM assembly source files in the current directory
-SOURCES = $(wildcard [0-9][0-9]_*.s) # Match only numbered files
+SOURCES = $(wildcard *.s) # Match only numbered files
 
 # Generate target executable names from source names
 TARGETS = $(patsubst %.s,%,$(SOURCES))
