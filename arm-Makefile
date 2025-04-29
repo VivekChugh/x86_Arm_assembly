@@ -1,0 +1,30 @@
+# Makefile for compiling ARM assembly files
+
+# Cross-compiler tools
+# AS = arm-linux-gnueabihf-as # Not needed directly
+# LD = arm-linux-gnueabihf-ld # Not needed directly
+CC = arm-linux-gnueabihf-gcc
+RM = rm -f
+CFLAGS = -static # Compile statically for simplicity
+
+# Find all ARM assembly source files in the current directory
+SOURCES = $(wildcard [0-9][0-9]_*.s) # Match only numbered files
+
+# Generate target executable names from source names
+TARGETS = $(patsubst %.s,%,$(SOURCES))
+
+# Default target: build all executables
+all: $(TARGETS)
+
+# Rule to compile and link a single ARM assembly file using GCC
+# $<: the first prerequisite (the .s file)
+# $@: the target file (the executable)
+%: %.s
+	$(CC) $(CFLAGS) $< -o $@
+
+# Target to clean up generated files
+clean:
+	$(RM) $(TARGETS) *.o output.txt # Also remove output.txt
+
+# Phony targets
+.PHONY: all clean
